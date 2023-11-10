@@ -28,10 +28,10 @@ public class Taxicommander implements CommandExecutor {
     public void initializeItems() {
         inv.addItem(createGuiItem(Material.LEATHER_HORSE_ARMOR, ChatColor.LIGHT_PURPLE + "경마장"));
         // 추가적인 아이템을 여기에 설정할 수 있습니다.
-        inv.addItem(createGuiItem(Material.DIAMOND, ChatColor.AQUA + "다이아몬드 구역"));
-        inv.addItem(createGuiItem(Material.GOLD_INGOT, ChatColor.GOLD + "골드 구역"));
-        inv.addItem(createGuiItem(Material.IRON_INGOT, ChatColor.GRAY + "아이언 구역"));
-        inv.addItem(createGuiItem(Material.EMERALD, ChatColor.GREEN + "에메랄드 구역"));
+        inv.addItem(createGuiItem(Material.STONE_AXE, ChatColor.AQUA + "나무꾼의 터"));
+        inv.addItem(createGuiItem(Material.WRITABLE_BOOK, ChatColor.GOLD + "직업 학교"));
+        inv.addItem(createGuiItem(Material.IRON_SWORD, ChatColor.GRAY + "LSJ 팬클럽 빌딩(사냥터)"));
+        inv.addItem(createGuiItem(Material.SPAWNER, ChatColor.GREEN + "경찰서"));
         inv.addItem(createGuiItem(Material.LAPIS_LAZULI, ChatColor.BLUE + "라피스 구역"));
     }
 

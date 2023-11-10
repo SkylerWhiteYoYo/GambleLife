@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="gamble:jar">
+    <output-path>$USER_HOME$/Desktop/내가만든 플귄/GambleLife</output-path>
+    <root id="archive" name="gamble.jar">
+      <element id="module-output" name="gamble" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/citizensnpcs/citizensapi/2.0.32-SNAPSHOT/citizensapi-2.0.32-20230905.170534-22.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
