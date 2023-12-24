@@ -61,7 +61,7 @@ public class Exchange implements CommandExecutor {
 
         // 플레이어의 잔액을 확인합니다.
         if (econ.getBalance(player) < totalCost) {
-            player.sendMessage("돈이 부족합니다. 필요 금액: " + totalCost);
+            player.sendMessage(ChatColor.RED + "돈이 부족합니다. 필요 금액: " + totalCost);
             return;
         }
 
@@ -69,7 +69,12 @@ public class Exchange implements CommandExecutor {
         econ.withdrawPlayer(player, totalCost);
         ItemStack chip = createChipItem(chipInfo, amount);
         player.getInventory().addItem(chip);
-        player.sendMessage(amount + "개의 " + chipInfo.displayName + "을(를) 받았습니다.");
+
+        // displayName에서 "&" 뒤에 오는 한 문자와 함께 "&"를 제거합니다.
+        String cleanDisplayName = chipInfo.displayName.replaceAll("&[0-9a-fA-Fk-oK-OrR]", "");
+
+        // 정제된 메시지를 플레이어에게 보냅니다.
+        player.sendMessage(amount + "개의 " + cleanDisplayName + "을(를) 받았습니다.");
     }
 
     private ItemStack createChipItem(ChipInfo chipInfo, int amount) {

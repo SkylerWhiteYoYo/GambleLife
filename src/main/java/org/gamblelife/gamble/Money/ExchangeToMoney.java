@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,11 +56,12 @@ public class ExchangeToMoney implements Listener {
             // 칩 정보를 가져와 일치하는지 검사합니다.
             for (ChipInfo chip : chipMap.values()) {
                 if (chip.material == material && meta.hasDisplayName() && meta.hasLore()) {
-                    String displayName = ChatColor.stripColor(meta.getDisplayName());
+                    // 색상 코드를 제거한 displayName을 가져옵니다.
+                    String cleanDisplayName = ChatColor.stripColor(meta.getDisplayName());
                     List<String> lore = meta.getLore();
 
-                    // 칩 이름과 로어가 일치하는지 확인
-                    if (displayName.equals(chip.displayName) && lore.contains(chip.loreText1) && lore.contains(chip.loreText2)) {
+                    // 칩 이름과 로어가 일치하는지 확인 (색상 코드를 제거한 상태로 비교)
+                    if (cleanDisplayName.equals(ChatColor.stripColor(chip.displayName)) && lore.equals(Arrays.asList(ChatColor.stripColor(chip.loreText1), ChatColor.stripColor(chip.loreText2)))) {
                         double value = chip.value * item.getAmount();
 
                         // 아이템을 제거하고, 플레이어의 계좌에 돈을 입금합니다.
