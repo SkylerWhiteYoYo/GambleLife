@@ -35,7 +35,12 @@ public class RegenerationWind implements Listener {
         if (item != null && item.getType() == Material.GREEN_DYE && item.hasItemMeta()) {
             ItemMeta meta = item.getItemMeta();
             if (meta.getPersistentDataContainer().has(key, PersistentDataType.INTEGER)) {
-                if (!player.hasCooldown(Material.GREEN_DYE)) {
+                // 이 부분을 수정하여 특정 아이템에 대한 쿨다운만 확인합니다.
+                NamespacedKey cooldownKey = new NamespacedKey(plugin, "regeneration_wind_cooldown");
+                long lastUsed = meta.getPersistentDataContainer().getOrDefault(cooldownKey, PersistentDataType.LONG, 0L);
+                long currentTime = System.currentTimeMillis();
+
+                if (currentTime - lastUsed > 60000) { // 1분 쿨다운
                     // 재생 효과 부여
                     player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 2)); // 10초, 레벨 3
 
@@ -44,10 +49,11 @@ public class RegenerationWind implements Listener {
                     player.sendMessage("§a재생의 바람을 사용하여 재생 효과를 얻었습니다!");
 
                     // 재사용 대기시간 설정 (1분)
-                    player.setCooldown(Material.GREEN_DYE, 1200);
+                    meta.getPersistentDataContainer().set(cooldownKey, PersistentDataType.LONG, currentTime);
+                    item.setItemMeta(meta);
 
                 } else {
-                    long timeLeft = (player.getCooldown(Material.GREEN_DYE) / 20);
+                    long timeLeft = (60000 - (currentTime - lastUsed)) / 1000;
                     player.sendMessage("§c아직 재사용 대기시간이 남았습니다! 남은 시간: " + timeLeft + "초");
                 }
             }
