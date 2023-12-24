@@ -4,6 +4,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.gamblelife.gamble.Money.Exchange;
+import org.gamblelife.gamble.Money.ExchangeToMoney;
 import org.gamblelife.gamble.Taxi.InventoryClickListener;
 import org.gamblelife.gamble.Taxi.Taxicommander;
 import org.gamblelife.gamble.item.GiveRegenerationWindCommand;
@@ -28,6 +29,7 @@ public final class GambleLife extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryClickListener(taxicommander), this);
         // '환전' 명령어를 Exchange 클래스와 연결하여 등록합니다.
         this.getCommand("환전").setExecutor(new Exchange(econ));
+        new ExchangeToMoney(this, econ);
     }
 
     private boolean setupEconomy() {
