@@ -29,7 +29,10 @@ public final class GambleLife extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryClickListener(taxicommander), this);
         // '환전' 명령어를 Exchange 클래스와 연결하여 등록합니다.
         this.getCommand("환전").setExecutor(new Exchange(econ));
-        new ExchangeToMoney(this, econ);
+        // ExchangeToMoney 인스턴스를 생성하고 이벤트 리스너로 등록합니다.
+        ExchangeToMoney exchangeToMoney = new ExchangeToMoney(this, econ);
+        getServer().getPluginManager().registerEvents(exchangeToMoney, this);
+
     }
 
     private boolean setupEconomy() {
