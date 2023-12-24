@@ -5,10 +5,5 @@ api-version: '1.20'
 commands:
   택시:
     description: 택시 메뉴를 엽니다.
-    usage: /<command>
-    permission: gpt.taxi.use
+    usage: /택시 <playername>
 
-permissions:
-  gpt.taxi.use:
-    description: Allows use of the taxi command
-    default: op

@@ -4,7 +4,6 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.gamblelife.gamble.Taxi.InventoryClickListener;
-import org.gamblelife.gamble.Taxi.TaxiNPCListener;
 import org.gamblelife.gamble.Taxi.Taxicommander;
 
 public final class GambleLife extends JavaPlugin {
@@ -22,8 +21,6 @@ public final class GambleLife extends JavaPlugin {
         this.getCommand("택시").setExecutor(taxicommander);
         // 이벤트 리스너 등록
         getServer().getPluginManager().registerEvents(new InventoryClickListener(taxicommander), this);
-        // NPC 리스너 등록
-        getServer().getPluginManager().registerEvents(new TaxiNPCListener(taxicommander), this);
 
     }
 
