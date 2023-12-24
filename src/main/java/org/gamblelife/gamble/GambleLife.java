@@ -5,6 +5,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.gamblelife.gamble.Money.Exchange;
 import org.gamblelife.gamble.Money.ExchangeToMoney;
+import org.gamblelife.gamble.Money.ExchangeWhenDeath;
 import org.gamblelife.gamble.Taxi.InventoryClickListener;
 import org.gamblelife.gamble.Taxi.Taxicommander;
 import org.gamblelife.gamble.item.GiveRegenerationWindCommand;
@@ -32,6 +33,9 @@ public final class GambleLife extends JavaPlugin {
         // ExchangeToMoney 인스턴스를 생성하고 이벤트 리스너로 등록합니다.
         ExchangeToMoney exchangeToMoney = new ExchangeToMoney(this, econ);
         getServer().getPluginManager().registerEvents(exchangeToMoney, this);
+        // ExchangeWhenDeath 인스턴스 생성 및 이벤트 리스너로 등록
+        ExchangeWhenDeath exchangeWhenDeath = new ExchangeWhenDeath(this, econ);
+        getServer().getPluginManager().registerEvents(exchangeWhenDeath, this);
 
     }
 
