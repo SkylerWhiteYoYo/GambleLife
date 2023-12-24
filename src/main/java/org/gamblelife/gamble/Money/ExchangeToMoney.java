@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ExchangeToMoney implements Listener {
     private final Economy econ;
@@ -27,10 +28,10 @@ public class ExchangeToMoney implements Listener {
         // 각 칩의 정보를 초기화합니다. 여기서 칩 이름과 로어를 정의합니다.
         chipMap.put("1000", new ChipInfo("&7게임 칩", Material.SLIME_BALL, 1000, "&f천원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
         chipMap.put("10000", new ChipInfo("&2무지개 칩", Material.MAGMA_CREAM, 10000, "&f만원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
-        chipMap.put("100000", new ChipInfo("&6골드 칩", Material.HONEYCOMB, 100000, "&f십만원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
-        chipMap.put("1000000", new ChipInfo("&b다이아몬드 칩", Material.DIAMOND, 1000000, "&f백만원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
-        chipMap.put("10000000", new ChipInfo("&a에메랄드 칩", Material.EMERALD, 10000000, "&f천만원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
-        chipMap.put("100000000", new ChipInfo("&1자수정 칩", Material.AMETHYST_SHARD, 100000000, "&f일억원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
+        chipMap.put("100000", new ChipInfo("&6골드 칩", Material.HONEYCOMB, 100000, "&f10만원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
+        chipMap.put("1000000", new ChipInfo("&b다이아몬드 칩", Material.DIAMOND, 1000000, "&f100만원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
+        chipMap.put("10000000", new ChipInfo("&a에메랄드 칩", Material.EMERALD, 10000000, "&f1000만원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
+        chipMap.put("100000000", new ChipInfo("&1자수정 칩", Material.AMETHYST_SHARD, 100000000, "&f1억원 상당의 게임칩", "&f환전소에서 교환 가능하다."));
 
         // 이벤트 리스너 등록
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -58,10 +59,13 @@ public class ExchangeToMoney implements Listener {
                 if (chip.material == material && meta.hasDisplayName() && meta.hasLore()) {
                     // 색상 코드를 제거한 displayName을 가져옵니다.
                     String cleanDisplayName = ChatColor.stripColor(meta.getDisplayName());
-                    List<String> lore = meta.getLore();
+                    List<String> cleanLore = meta.getLore().stream()
+                            .map(ChatColor::stripColor)
+                            .collect(Collectors.toList());
 
-                    // 칩 이름과 로어가 일치하는지 확인 (색상 코드를 제거한 상태로 비교)
-                    if (cleanDisplayName.equals(ChatColor.stripColor(chip.displayName)) && lore.equals(Arrays.asList(ChatColor.stripColor(chip.loreText1), ChatColor.stripColor(chip.loreText2)))) {
+                    // 칩 이름과 정제된 로어가 일치하는지 확인 (색상 코드를 제거한 상태로 비교)
+                    List<String> chipCleanLore = Arrays.asList(ChatColor.stripColor(chip.loreText1), ChatColor.stripColor(chip.loreText2));
+                    if (cleanDisplayName.equals(ChatColor.stripColor(chip.displayName)) && cleanLore.equals(chipCleanLore)) {
                         double value = chip.value * item.getAmount();
 
                         // 아이템을 제거하고, 플레이어의 계좌에 돈을 입금합니다.
