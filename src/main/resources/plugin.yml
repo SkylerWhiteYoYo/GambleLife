@@ -6,4 +6,11 @@ commands:
   택시:
     description: 택시 메뉴를 엽니다.
     usage: /택시 <playername>
-
+  giveRegenerationWind:
+    description: 재생의 바람 아이템을 지급합니다.
+    usage: /<command>
+    permission: gamblelife.givewind
+permissions:
+  gamblelife.givewind:
+    description: 재생의 바람 아이템을 받을 수 있는 권한
+    default: op

@@ -5,6 +5,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.gamblelife.gamble.Taxi.InventoryClickListener;
 import org.gamblelife.gamble.Taxi.Taxicommander;
+import org.gamblelife.gamble.item.GiveRegenerationWindCommand;
+import org.gamblelife.gamble.item.RegenerationWind;
 
 public final class GambleLife extends JavaPlugin {
     private static Economy econ = null;
@@ -15,6 +17,8 @@ public final class GambleLife extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        getServer().getPluginManager().registerEvents(new RegenerationWind(this), this);
+        this.getCommand("giveRegenerationWind").setExecutor(new GiveRegenerationWindCommand());
         //택시
         Taxicommander taxicommander = new Taxicommander();
         // "/택시" 커맨드 등록
