@@ -10,6 +10,10 @@ commands:
     description: 재생의 바람 아이템을 지급합니다.
     usage: /<command>
     permission: gamblelife.givewind
+  환전:
+    description: 원하는 액면가의 게임 칩으로 환전합니다.
+    usage: /환전 <액면가> <갯수(기본값1)>
+    aliases: [exchange]
 permissions:
   gamblelife.givewind:
     description: 재생의 바람 아이템을 받을 수 있는 권한

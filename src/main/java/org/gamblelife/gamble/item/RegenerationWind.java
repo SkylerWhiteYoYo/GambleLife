@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.gamblelife.gamble.GambleLife;
+import org.bukkit.Particle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,10 @@ public class RegenerationWind implements Listener {
                     // 사용자 피드백 개선: 사운드와 메시지
                     player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1F, 1F);
                     player.sendMessage("§a재생의 바람을 사용하여 재생 효과를 얻었습니다!");
+
+                    // 여기에 파티클 효과 추가
+                    player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, player.getLocation().add(0, 1, 0), 30, 0.5, 0.5, 0.5, 0);
+
 
                     // 재사용 대기시간 설정 (1분)
                     meta.getPersistentDataContainer().set(cooldownKey, PersistentDataType.LONG, currentTime);
